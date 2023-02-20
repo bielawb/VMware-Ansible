@@ -1,0 +1,12 @@
+- set_fact:
+    auth: &auth
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      validate_certs: false
+
+- name: Break power configuration so that VMware DSC can fix it
+  community.vmware.vmware_host_powermgmt_policy:
+    esxi_hostname: "{{ hostname }}"
+    policy: low-power
+    <<: *auth
