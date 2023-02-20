@@ -1,0 +1,16 @@
+- set_fact:
+    auth: &auth
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      validate_certs: false
+
+- name: Collect vmhost facts
+  community.vmware.vmware_host_facts:
+    <<: *auth
+  register: host_facts
+  delegate_to: localhost
+
+- name: Display collected data
+  ansible.builtin.debug:
+    var: host_facts
