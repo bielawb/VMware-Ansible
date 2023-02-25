@@ -5,7 +5,17 @@
       password: "{{ password }}"
       validate_certs: false
 
-- name: Collect vmhost facts
+- name: Collect information about our connection
+  community.vmware.vmware_about_info:
+    <<: *auth
+  register: connection_info
+  delegate_to: localhost
+
+- name: Display collected data
+  ansible.builtin.debug:
+    var: connection_info
+
+- name: Collect VMHost facts
   community.vmware.vmware_host_facts:
     <<: *auth
   register: host_facts
