@@ -13,4 +13,4 @@
 
 - name: Show info about disks
   ansible.builtin.debug:
-    var: hosts_facts.ansible_facts_.ansible_datastore
+    var: host_facts.ansible_facts.ansible_datastore
