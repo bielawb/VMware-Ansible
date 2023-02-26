@@ -6,4 +6,4 @@
     - vars/auth.yml
   roles:
     - { role: vmhost, qtask: facts }
-    - { role: vmhost, qtask: powermgmt }
+    - { role: vmhost, qtask: powermgmt, when: broken is not defined }
