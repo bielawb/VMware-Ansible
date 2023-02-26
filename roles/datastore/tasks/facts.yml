@@ -5,13 +5,12 @@
       password: "{{ password }}"
       validate_certs: false
 
-- name: Gather info about VMHBAs of an ESXi Host
-  community.vmware.vmware_host_disk_info:
-    esxi_hostname: "{{ hostname }}"
+- name: Gather info about ESXI host
+  community.vmware.vmware_host_facts:
     <<: *auth
   delegate_to: localhost
-  register: host_vmhbas
+  register: host_facts
 
 - name: Show info about disks
   ansible.builtin.debug:
-    var: host_vmhbas
+    var: hosts_facts.ansible_facts_.ansible_datastore
