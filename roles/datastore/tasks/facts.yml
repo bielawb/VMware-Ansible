@@ -1,0 +1,17 @@
+- set_fact:
+    auth: &auth
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      validate_certs: false
+
+- name: Gather info about VMHBAs of an ESXi Host
+  community.vmware.vmware_host_disk_info:
+    esxi_hostname: "{{ hostname }}"
+    <<: *auth
+  delegate_to: localhost
+  register: host_vmhbas
+
+- name: Show info about disks
+  ansible.builtin.debug:
+    var: host_vmhbas
