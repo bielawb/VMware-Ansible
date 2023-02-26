@@ -3,3 +3,7 @@ datastores:
     server: 192.168.18.101
   - name: nfs_02
     server: 192.168.18.101
+  - name: nfs_03
+    server: 192.168.18.101
+  - name: nfs_04
+    server: 192.168.18.101
