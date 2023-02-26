@@ -4,6 +4,7 @@
   gather_facts: false
   vars_files:
     - vars/auth.yml
+    - vars/nfs_datastores.yml
   roles:
     - { role: datastore, qtask: facts }
-    - { role: datastore, qtask: format }
+    - { role: datastore, qtask: mount }

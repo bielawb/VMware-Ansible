@@ -1,0 +1,21 @@
+- set_fact:
+    auth: &auth
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      validate_certs: false
+
+- name: Mount NFS share
+  community.vmware.vmware_host_datastore:
+    datastore_name: "{{ item.name }}"
+    datastore_type: nfs
+    nfs_server: "{{ item.server }}"
+    nfs_path: "/{{ item.name }}"
+    nfs_ro: no
+    esxi_hostname: "{{ hostname }}"
+    state: present
+    <<: *auth
+  delegate_to: localhost
+  loop: "{{ datastores }}"
+  loop_control:
+    label: "Mounting /{{ item.name }} from {{ item.server }} as {{ item.name }}."
