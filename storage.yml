@@ -7,4 +7,5 @@
     - vars/nfs_datastores.yml
   roles:
     - { role: datastore, qtask: facts }
+    - { role: nfs, qtask: exports }
     - { role: datastore, qtask: mount }

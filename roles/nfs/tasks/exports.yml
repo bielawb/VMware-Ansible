@@ -1,0 +1,24 @@
+- name: Create folder
+  ansible.builtin.file:
+    path: "/{{ item.name }}"
+    state: directory
+  become: true
+  become_method: sudo
+  loop: "{{ datastores }}"
+  loop_control:
+    label: "Creating folder /{{ item.name }} on {{ item.server }}"
+        
+- name: share in /etc/exports file
+  ansible.builtin.lineinfile:
+    path: /etc/exports
+    state: present
+    line: "/{{ item.name }} {{ hostname }}(rw,sync,no_root_squash)"
+  notify: restart NFS server
+  become: true
+  become_method: sudo
+  loop: "{{ datastores }}"
+  loop_control:
+    label: "Creating folder /{{ item.name }} on {{ item.server }}"
+
+- name: Run handler
+  meta: flush_handlers
